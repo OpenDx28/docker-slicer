@@ -65,8 +65,8 @@ COPY ./common/install/kasm_vnc/kasmvnc.yaml /etc/kasmvnc/
 #RUN bash $INST_SCRIPTS/kasm_upload_server/install_kasm_upload_server.sh  && rm -rf $INST_SCRIPTS/kasm_upload_server/
 
 ### Install Audio
-#COPY ./ubuntu/install/audio $INST_SCRIPTS/audio/
-#RUN bash $INST_SCRIPTS/audio/install_audio.sh  && rm -rf $INST_SCRIPTS/audio/
+COPY ./ubuntu/install/audio $INST_SCRIPTS/audio/
+RUN bash $INST_SCRIPTS/audio/install_audio.sh  && rm -rf $INST_SCRIPTS/audio/
 
 ### Install Audio Input
 #COPY ./ubuntu/install/audio_input $INST_SCRIPTS/audio_input/
@@ -135,8 +135,8 @@ RUN touch $STARTUPDIR/wm.log \
     && chmod 755 $STARTUPDIR/generate_container_user.sh \
     && chmod +x $STARTUPDIR/jsmpeg/kasm_audio_out-linux \
     && rm -rf $STARTUPDIR/install \
-    && mkdir -p $STARTUPDIR/kasmrx/Downloads \
-    && chown 1000:1000 $STARTUPDIR/kasmrx/Downloads \
+    # && mkdir -p $STARTUPDIR/kasmrx/Downloads \
+    # && chown 1000:1000 $STARTUPDIR/kasmrx/Downloads \
     && chown -R root:root /usr/local/bin \
     && chown 1000:root /var/run/pulse \
     && rm -Rf /home/kasm-default-profile/.launchpadlib
