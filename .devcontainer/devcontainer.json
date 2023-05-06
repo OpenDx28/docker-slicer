@@ -21,7 +21,8 @@
 				"ms-azuretools.vscode-docker",
 				"streetsidesoftware.code-spell-checker",
 				"Gruntfuggly.todo-tree",
-				"esbenp.prettier-vscode"
+				"esbenp.prettier-vscode",
+				"GitHub.vscode-github-actions"
 			]
 		}
 	},
