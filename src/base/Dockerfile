@@ -26,85 +26,85 @@ RUN mkdir -p $HOME/Desktop
 ### Support NVIDIA gpus for graphics acceleration
 RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
     echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
-COPY src/ubuntu/install/nvidia/10_nvidia.json /usr/share/glvnd/egl_vendor.d/10_nvidia.json
+COPY ./ubuntu/install/nvidia/10_nvidia.json /usr/share/glvnd/egl_vendor.d/10_nvidia.json
 
 ### Setup package rules
-COPY ./src/ubuntu/install/package_rules $INST_SCRIPTS/package_rules/
+COPY ./ubuntu/install/package_rules $INST_SCRIPTS/package_rules/
 RUN bash $INST_SCRIPTS/package_rules/package_rules.sh && rm -rf $INST_SCRIPTS/package_rules/
 
 ### Install common tools
-COPY ./src/ubuntu/install/tools $INST_SCRIPTS/tools/
+COPY ./ubuntu/install/tools $INST_SCRIPTS/tools/
 RUN bash $INST_SCRIPTS/tools/install_tools.sh && rm -rf $INST_SCRIPTS/tools/
 
 ### Copy over the maximization script to our startup dir for use by app images.
-COPY ./src/ubuntu/install/maximize_script $STARTUPDIR/
+COPY ./ubuntu/install/maximize_script $STARTUPDIR/
 
 ### Install custom fonts
-COPY ./src/ubuntu/install/fonts $INST_SCRIPTS/fonts/
+COPY ./ubuntu/install/fonts $INST_SCRIPTS/fonts/
 RUN bash $INST_SCRIPTS/fonts/install_custom_fonts.sh && rm -rf $INST_SCRIPTS/fonts/
 
 ### Install xfce UI
-COPY ./src/ubuntu/install/xfce $INST_SCRIPTS/xfce/
+COPY ./ubuntu/install/xfce $INST_SCRIPTS/xfce/
 RUN bash $INST_SCRIPTS/xfce/install_xfce_ui.sh && rm -rf $INST_SCRIPTS/xfce/
-ADD ./src/$DISTRO/xfce/.config/ $HOME/.config/
+ADD ./$DISTRO/xfce/.config/ $HOME/.config/
 RUN mkdir -p /usr/share/extra/backgrounds/
 RUN mkdir -p /usr/share/extra/icons/
-ADD /src/common/resources/images/bg_kasm.png  /usr/share/extra/backgrounds/bg_kasm.png
-ADD /src/common/resources/images/$BG_IMG  /usr/share/extra/backgrounds/bg_default.png
-ADD /src/common/resources/images/icon_ubuntu.png /usr/share/extra/icons/icon_ubuntu.png
-ADD /src/common/resources/images/icon_ubuntu.png /usr/share/extra/icons/icon_default.png
-ADD /src/common/resources/images/icon_kasm.png /usr/share/extra/icons/icon_kasm.png
+ADD ./common/resources/images/bg_kasm.png  /usr/share/extra/backgrounds/bg_kasm.png
+ADD ./common/resources/images/$BG_IMG  /usr/share/extra/backgrounds/bg_default.png
+ADD ./common/resources/images/icon_ubuntu.png /usr/share/extra/icons/icon_ubuntu.png
+ADD ./common/resources/images/icon_ubuntu.png /usr/share/extra/icons/icon_default.png
+ADD ./common/resources/images/icon_kasm.png /usr/share/extra/icons/icon_kasm.png
 
 ### Install kasm_vnc dependencies and binaries
-COPY ./src/ubuntu/install/kasm_vnc $INST_SCRIPTS/kasm_vnc/
+COPY ./ubuntu/install/kasm_vnc $INST_SCRIPTS/kasm_vnc/
 RUN bash $INST_SCRIPTS/kasm_vnc/install_kasm_vnc.sh && rm -rf $INST_SCRIPTS/kasm_vnc/
-COPY ./src/common/install/kasm_vnc/kasmvnc.yaml /etc/kasmvnc/
+COPY ./common/install/kasm_vnc/kasmvnc.yaml /etc/kasmvnc/
 
 ### Install Kasm Upload Server
-COPY ./src/ubuntu/install/kasm_upload_server $INST_SCRIPTS/kasm_upload_server/
-RUN bash $INST_SCRIPTS/kasm_upload_server/install_kasm_upload_server.sh  && rm -rf $INST_SCRIPTS/kasm_upload_server/
+#COPY ./ubuntu/install/kasm_upload_server $INST_SCRIPTS/kasm_upload_server/
+#RUN bash $INST_SCRIPTS/kasm_upload_server/install_kasm_upload_server.sh  && rm -rf $INST_SCRIPTS/kasm_upload_server/
 
 ### Install Audio
-COPY ./src/ubuntu/install/audio $INST_SCRIPTS/audio/
-RUN bash $INST_SCRIPTS/audio/install_audio.sh  && rm -rf $INST_SCRIPTS/audio/
+#COPY ./ubuntu/install/audio $INST_SCRIPTS/audio/
+#RUN bash $INST_SCRIPTS/audio/install_audio.sh  && rm -rf $INST_SCRIPTS/audio/
 
 ### Install Audio Input
-COPY ./src/ubuntu/install/audio_input $INST_SCRIPTS/audio_input/
-RUN bash $INST_SCRIPTS/audio_input/install_audio_input.sh && rm -rf $INST_SCRIPTS/audio_input/
+#COPY ./ubuntu/install/audio_input $INST_SCRIPTS/audio_input/
+#RUN bash $INST_SCRIPTS/audio_input/install_audio_input.sh && rm -rf $INST_SCRIPTS/audio_input/
 
 ### Install Gamepad Service
-COPY ./src/ubuntu/install/gamepad $INST_SCRIPTS/gamepad/
+COPY ./ubuntu/install/gamepad $INST_SCRIPTS/gamepad/
 RUN bash $INST_SCRIPTS/gamepad/install_gamepad.sh && rm -rf $INST_SCRIPTS/gamepad/
 
 ### Install custom cursors
-COPY ./src/ubuntu/install/cursors $INST_SCRIPTS/cursors/
+COPY ./ubuntu/install/cursors $INST_SCRIPTS/cursors/
 RUN bash $INST_SCRIPTS/cursors/install_cursors.sh && rm -rf $INST_SCRIPTS/cursors/
 
 ### Install Squid
-COPY ./src/ubuntu/install/squid/install/ $INST_SCRIPTS/squid_install/
+COPY ./ubuntu/install/squid/install/ $INST_SCRIPTS/squid_install/
 RUN bash $INST_SCRIPTS/squid_install/install_squid.sh && rm -rf $INST_SCRIPTS/squid_install/
-COPY ./src/ubuntu/install/squid/resources/*.conf /etc/squid/
-COPY ./src/ubuntu/install/squid/resources/start_squid.sh /etc/squid/start_squid.sh
-COPY ./src/ubuntu/install/squid/resources/SN.png /usr/local/squid/share/icons/SN.png
+COPY ./ubuntu/install/squid/resources/*.conf /etc/squid/
+COPY ./ubuntu/install/squid/resources/start_squid.sh /etc/squid/start_squid.sh
+COPY ./ubuntu/install/squid/resources/SN.png /usr/local/squid/share/icons/SN.png
 RUN chown proxy:proxy /usr/local/squid/share/icons/SN.png
-COPY ./src/ubuntu/install/squid/resources/error_message/access_denied.html /usr/local/squid/share/errors/en/ERR_ACCESS_DENIED
+COPY ./ubuntu/install/squid/resources/error_message/access_denied.html /usr/local/squid/share/errors/en/ERR_ACCESS_DENIED
 RUN chown proxy:proxy /usr/local/squid/share/errors/en/ERR_ACCESS_DENIED
 RUN rm -rf $INST_SCRIPTS/resources/
 RUN chmod +x /etc/squid/kasm_squid_adapter
 RUN chmod +x /etc/squid/start_squid.sh && chmod 4755 /etc/squid/start_squid.sh
 
 ### configure startup
-COPY ./src/common/scripts/kasm_hook_scripts $STARTUPDIR
-ADD ./src/common/startup_scripts $STARTUPDIR
+COPY ./common/scripts/kasm_hook_scripts $STARTUPDIR
+ADD ./common/startup_scripts $STARTUPDIR
 RUN bash $STARTUPDIR/set_user_permission.sh $STARTUPDIR $HOME && \
     echo 'source $STARTUPDIR/generate_container_user.sh' >> $HOME/.bashrc
 
 ### extra configurations needed per distro variant
-COPY ./src/ubuntu/install/extra $INST_SCRIPTS/extra/
+COPY ./ubuntu/install/extra $INST_SCRIPTS/extra/
 RUN bash $INST_SCRIPTS/extra/$EXTRA_SH  && rm -rf $INST_SCRIPTS/extra/
 
 ### VirtualGL
-COPY ./src/ubuntu/install/virtualgl $INST_SCRIPTS/virtualgl/
+COPY ./ubuntu/install/virtualgl $INST_SCRIPTS/virtualgl/
 RUN bash $INST_SCRIPTS/virtualgl/install_virtualgl.sh && rm -rf $INST_SCRIPTS/virtualgl/
 
 ### Create user and home directory for base images that don't already define it
@@ -129,8 +129,8 @@ RUN touch $STARTUPDIR/wm.log \
     && find $STARTUPDIR -type f -iname "*.rb" -exec chmod 755 {} \; \
     && find $STARTUPDIR -type f -iname "*.pl" -exec chmod 755 {} \; \
     && find $STARTUPDIR -type f -iname "*.log" -exec chmod 666 {} \; \
-    && chmod 755 $STARTUPDIR/upload_server/kasm_upload_server \
-    && chmod 755 $STARTUPDIR/audio_input/kasm_audio_input_server \
+    # && chmod 755 $STARTUPDIR/upload_server/kasm_upload_server \
+    # && chmod 755 $STARTUPDIR/audio_input/kasm_audio_input_server \
     && chmod 755 $STARTUPDIR/gamepad/kasm_gamepad_server \
     && chmod 755 $STARTUPDIR/generate_container_user.sh \
     && chmod +x $STARTUPDIR/jsmpeg/kasm_audio_out-linux \
@@ -142,17 +142,12 @@ RUN touch $STARTUPDIR/wm.log \
     && rm -Rf /home/kasm-default-profile/.launchpadlib
 
 ### Cleanup job
-COPY ./src/ubuntu/install/cleanup $INST_SCRIPTS/cleanup/
+COPY ./ubuntu/install/cleanup $INST_SCRIPTS/cleanup/
 RUN bash $INST_SCRIPTS/cleanup/cleanup.sh && rm -rf $INST_SCRIPTS/cleanup/
 
 #### Runtime Stage ####
 FROM scratch
 COPY --from=base_layer / /
-
-### Labels
-LABEL "org.opencontainers.image.authors"='Kasm Tech "info@kasmweb.com"'
-LABEL "com.kasmweb.image"="true"
-LABEL "com.kasmweb.gpu_acceleration_egl"="nvidia"
 
 ### Environment config
 ARG DISTRO=ubuntu
@@ -190,11 +185,14 @@ ENV AUDIO_PORT=4901 \
     VNC_COL_DEPTH=24 \
     VNCOPTIONS="-PreferBandwidth -DynamicQualityMin=4 -DynamicQualityMax=7 -DLP_ClipDelay=0" \
     VNC_PORT=5901 \
-    VNC_PORT=5901 \
     VNC_PW=vncpassword \
     VNC_RESOLUTION=1280x1024 \
     VNC_RESOLUTION=1280x720 \
-    VNC_VIEW_ONLY_PW=vncviewonlypassword
+    VNC_VIEW_ONLY_PW=vncviewonlypassword \
+    KASM_SVC_AUDIO=0 \
+    KASM_SVC_AUDIO_INPUT=0 \
+    KASM_SVC_UPLOADS=0 \
+    KASM_SVC_GAMEPAD=1
 
 ### Ports and user
 EXPOSE $VNC_PORT \
@@ -204,5 +202,5 @@ EXPOSE $VNC_PORT \
 WORKDIR $HOME
 USER 1000
 
-ENTRYPOINT ["/dockerstartup/kasm_default_profile.sh", "/dockerstartup/vnc_startup.sh", "/dockerstartup/kasm_startup.sh"]
+ENTRYPOINT ["/dockerstartup/kasm_default_profile.sh", "/dockerstartup/vnc_startup.sh"]
 CMD ["--wait"]

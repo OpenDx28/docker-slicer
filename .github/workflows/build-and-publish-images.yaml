@@ -29,11 +29,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Build image
-        run: docker build . --file dockerfile-$BASE_IMAGE_NAME --tag $BASE_IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
-
       - name: Log in to registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+
+      - name: Build image
+        run: cd src/base && docker build . --tag $BASE_IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
 
       - name: Push image
         id: push
@@ -65,13 +65,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+
       - name: Build image
         env:
           BASE_IMAGE: ${{needs.push-base-image.outputs.image_name}}
-        run: docker build . --file dockerfile-$SLICER_IMAGE_NAME --tag $SLICER_IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}" --build-arg BASE_IMAGE=$BASE_IMAGE
-
-      - name: Log in to registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+        run: cd src/slicer && docker build . --tag $SLICER_IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}" --build-arg BASE_IMAGE=$BASE_IMAGE
 
       - name: Push image
         run: |

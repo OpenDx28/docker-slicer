@@ -22,7 +22,8 @@
 				"streetsidesoftware.code-spell-checker",
 				"Gruntfuggly.todo-tree",
 				"esbenp.prettier-vscode",
-				"GitHub.vscode-github-actions"
+				"GitHub.vscode-github-actions",
+				"foxundermoon.shell-format"
 			]
 		}
 	},
