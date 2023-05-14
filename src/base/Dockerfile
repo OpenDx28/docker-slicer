@@ -172,7 +172,6 @@ ENV AUDIO_PORT=4901 \
     LD_LIBRARY_PATH=/opt/libjpeg-turbo/lib64/:/usr/local/lib/ \
     LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:/usr/lib/i386-linux-gnu${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}:/usr/local/nvidia/lib:/usr/local/nvidia/lib64 \
     MAX_FRAME_RATE=24 \
-    NO_VNC_PORT=6901 \
     NVIDIA_DRIVER_CAPABILITIES=${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics,compat32,utility \
     OMP_WAIT_POLICY=PASSIVE \
     PULSE_RUNTIME_PATH=/var/run/pulse \
@@ -184,7 +183,7 @@ ENV AUDIO_PORT=4901 \
     TERM=xterm \
     VNC_COL_DEPTH=24 \
     VNCOPTIONS="-PreferBandwidth -DynamicQualityMin=4 -DynamicQualityMax=7 -DLP_ClipDelay=0" \
-    VNC_PORT=5901 \
+    VNC_PORT=6901 \
     VNC_PW=vncpassword \
     VNC_DISABLE_AUTH=false \
     VNC_RESOLUTION=1280x1024 \
@@ -197,7 +196,6 @@ ENV AUDIO_PORT=4901 \
 
 ### Ports and user
 EXPOSE $VNC_PORT \
-       $NO_VNC_PORT \
        $UPLOAD_PORT \
        $AUDIO_PORT
 WORKDIR $HOME
