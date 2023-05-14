@@ -33,8 +33,16 @@ rm -rf /home/kasm-user/Videos
 rm -rf /home/kasm-user/Pictures
 rm -rf /home/kasm-user/Music
 rm -rf /home/kasm-user/Desktop
+rm -rf /home/kasm-user/Public
+rm -rf /home/kasm-user/Templates
+
 touch /home/kasm-user/STORE_FILES_INSIDE_THE_DOCUMENTS_FOLDER
-setfacl -d -m other:rwx /home/kasm-user/Documents
+
 chmod 777 /home/kasm-user/Documents
+chmod g+s /home/kasm-user/Documents
+
+setfacl -d -m g::rwx /home/kasm-user/Documents
+setfacl -d -m o:rwx /home/kasm-user/Documents
+
 service apache2 start
 startup
