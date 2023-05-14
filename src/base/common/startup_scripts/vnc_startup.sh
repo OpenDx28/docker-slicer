@@ -162,7 +162,7 @@ function start_audio_out (){
 function start_audio_in (){
 	if [[ ${KASM_SVC_AUDIO_INPUT:-1} == 1 ]]; then
 		echo 'Starting audio input server'
-		$STARTUPDIR/audio_input/kasm_audio_input_server --auth-token "user:$VNC_PW" &
+		$STARTUPDIR/audio_input/kasm_audio_input_server --ssl --auth-token "user:$VNC_PW" --cert ${HOME}/.vnc/self.pem --certkey ${HOME}/.vnc/self.pem &
 
 		KASM_PROCS['kasm_audio_in']=$!
 
@@ -190,7 +190,7 @@ function start_upload (){
 function start_gamepad (){
 	if [[ ${KASM_SVC_GAMEPAD:-1} == 1 ]]; then
 		echo 'Starting gamepad server'
-		$STARTUPDIR/gamepad/kasm_gamepad_server --auth-token "user:$VNC_PW" &
+		$STARTUPDIR/gamepad/kasm_gamepad_server --ssl --auth-token "user:$VNC_PW" --cert ${HOME}/.vnc/self.pem --certkey ${HOME}/.vnc/self.pem &
 
 		KASM_PROCS['kasm_gamepad']=$!
 
@@ -242,7 +242,7 @@ fi
 
 # Create cert for KasmVNC
 mkdir -p ${HOME}/.vnc
-#openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout ${HOME}/.vnc/self.pem -out ${HOME}/.vnc/self.pem -subj "/C=US/ST=VA/L=None/O=None/OU=DoFu/CN=kasm/emailAddress=none@none.none"
+openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout ${HOME}/.vnc/self.pem -out ${HOME}/.vnc/self.pem -subj "/C=US/ST=VA/L=None/O=None/OU=DoFu/CN=kasm/emailAddress=none@none.none"
 
 # first entry is control, second is view (if only one is valid for both)
 mkdir -p "$HOME/.vnc"
