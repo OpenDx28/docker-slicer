@@ -14,9 +14,29 @@ WORKDIR $HOME
 
 ######### Customize Container Here ###########
 
+# Install Slicer 3D
 COPY ./install_slicer.sh $INST_SCRIPTS/slicer/
 RUN bash $INST_SCRIPTS/slicer/install_slicer.sh && rm -rf $INST_SCRIPTS/slicer/
 
+# Install WebDAV
+RUN apt-get -y update && \
+    apt-get -y install apache2 && \
+    a2enmod dav && \
+    a2enmod dav_fs && \
+    chown -R www-data:www-data /var/www/ && \
+    cat > /etc/apache2/sites-available/webdav-site.conf <<EOF
+    DavLockDB /usr/local/apache/DavLock
+    ServerName localhost
+    Alias /webdav /var/www/
+    <Directory /var/www/>
+        DAV On
+        DirectoryIndex disabled
+    </Directory>
+    EOF && \
+    ln -s /etc/apache2/sites-available/webdav-site.conf /etc/apache2/sites-enabled/webdav-site.conf && \
+    apachectl configtest && service apache2 restart
+
+# Custom startup script
 COPY ./custom_startup.sh $STARTUPDIR/custom_startup.sh
 RUN chmod 755 $STARTUPDIR/custom_startup.sh
 

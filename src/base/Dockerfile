@@ -186,6 +186,7 @@ ENV AUDIO_PORT=4901 \
     VNCOPTIONS="-PreferBandwidth -DynamicQualityMin=4 -DynamicQualityMax=7 -DLP_ClipDelay=0" \
     VNC_PORT=5901 \
     VNC_PW=vncpassword \
+    VNC_DISABLE_AUTH=false \
     VNC_RESOLUTION=1280x1024 \
     VNC_RESOLUTION=1280x720 \
     VNC_VIEW_ONLY_PW=vncviewonlypassword \
