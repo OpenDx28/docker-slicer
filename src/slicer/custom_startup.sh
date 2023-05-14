@@ -27,4 +27,5 @@ startup() {
 
 }
 
+service apache2 start
 startup

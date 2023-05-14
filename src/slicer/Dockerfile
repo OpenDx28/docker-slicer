@@ -27,8 +27,7 @@ RUN a2enmod dav && \
     a2enmod dav_fs && \
     chown -R www-data:www-data /var/www/ && \
     ln -s /etc/apache2/sites-available/webdav-site.conf /etc/apache2/sites-enabled/webdav-site.conf && \
-    apachectl configtest && \
-    service apache2 restart
+    apachectl configtest
 
 # Custom startup script
 COPY ./custom_startup.sh $STARTUPDIR/custom_startup.sh
