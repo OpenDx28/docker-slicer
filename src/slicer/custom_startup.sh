@@ -27,5 +27,14 @@ startup() {
 
 }
 
+rm -rf /home/kasm-user/Downloads
+rm -rf /home/kasm-user/Uploads
+rm -rf /home/kasm-user/Videos
+rm -rf /home/kasm-user/Pictures
+rm -rf /home/kasm-user/Music
+rm -rf /home/kasm-user/Desktop
+touch /home/kasm-user/STORE_FILES_INSIDE_THE_DOCUMENTS_FOLDER
+setfacl -d -m other:rwx /home/kasm-user/Documents
+chmod 777 /home/kasm-user/Documents
 service apache2 start
 startup

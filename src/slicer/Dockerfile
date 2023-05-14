@@ -25,7 +25,9 @@ COPY ./000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY ./webdav-site.conf /etc/apache2/sites-available/webdav-site.conf
 RUN a2enmod dav && \
     a2enmod dav_fs && \
-    chown -R www-data:www-data /var/www/ && \
+    mkdir -p /usr/local/apache && \
+    chown -R www-data:www-data /usr/local/apache && \
+    chown -R www-data:www-data /var/www && \
     ln -s /etc/apache2/sites-available/webdav-site.conf /etc/apache2/sites-enabled/webdav-site.conf && \
     apachectl configtest
 
