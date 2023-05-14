@@ -73,7 +73,7 @@ function start_kasmvnc (){
 	chmod +x $HOME/.vnc/xstartup
 
 	VNCOPTIONS="$VNCOPTIONS -select-de manual"
-	if [[ "${VNC_DISABLE_AUTH}" = "true" ]] ; then
+	if [[ "${VNC_DISABLE_AUTH}" == "true" ]] ; then
 		VNCOPTIONS="$VNCOPTIONS -disableBasicAuth"
 	fi
 	if [[ "${BUILD_ARCH}" =~ ^aarch64$ ]] && [[ -f /lib/aarch64-linux-gnu/libgcc_s.so.1 ]] ; then
