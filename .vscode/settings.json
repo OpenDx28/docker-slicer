@@ -1,5 +1,12 @@
 {
   "cSpell.enableFiletypes": [
     "dockerfile"
+  ],
+  "cSpell.words": [
+    "buypass",
+    "creds",
+    "dslicer",
+    "webdav",
+    "zerossl"
   ]
 }

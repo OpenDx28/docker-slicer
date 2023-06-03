@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: slicer
+  namespace: slicer
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate: {}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: slicer
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: slicer
+        app.kubernetes.io/component: slicer
+    spec:
+      containers:
+        - name: slicer
+          image: ghcr.io/ispana/slicer:latest
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 200m
+              memory: 300Mi
+              # TODO: enable when possible
+              #nvidia.com/gpu: "1"
+            limits: {}
+              # TODO: enable when possible
+              #nvidia.com/gpu: "1"
+          # readinessProbe:
+          #   initialDelaySeconds: 5
+          #   timeoutSeconds: 5
+          #   periodSeconds: 5
+          #   httpGet:
+          #     port: 8085
+          #     path: /
+          #     scheme: HTTP
+          envFrom:
+            - secretRef:
+                name: slicer-secret
+            - configMapRef:
+                name: slicer-config
+          volumeMounts:
+            - mountPath: /dev/shm
+              name: cache-volume
+      volumes:
+        - name: cache-volume
+          emptyDir:
+            medium: Memory
+            sizeLimit: 512Mi
+      securityContext:
+        runAsUser: 0
+      imagePullSecrets:
+        - name: registry-creds

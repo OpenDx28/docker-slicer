@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: slicer-config
+  namespace: slicer
+data:
+  VNC_DISABLE_AUTH: "true"
+  VNC_PORT: "6901"

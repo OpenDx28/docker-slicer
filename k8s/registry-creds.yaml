@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: registry-creds
+  namespace: slicer
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: >-
+    ewogICAgICAgICJhdXRocyI6IHsKICAgICAgICAgICAgICAgICJnaGNyLmlvIjogewogICAgICAgICAgICAgICAgICAgICAgICAiYXV0aCI6ICJKRHBuYUhCZmEybE5aa2s1VEdWdGFESTRWWFU1WldwME9HcE1UVVE0VHpSU1lqYzFNR1ZQVkZCTiIKICAgICAgICAgICAgICAgIH0KICAgICAgICB9Cn0=

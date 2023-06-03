@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: slicer-cert
+  namespace: slicer
+spec:
+  secretName: slicer-tls
+  subject:
+    organizations:
+      - OpenDX
+  dnsNames:
+    - "slicer.193.147.109.10.nip.io"
+    - "webdav.slicer.193.147.109.10.nip.io"
+  issuerRef:
+    name: buypass-issuer
+    kind: ClusterIssuer
