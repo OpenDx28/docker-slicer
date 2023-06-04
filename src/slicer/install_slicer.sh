@@ -7,6 +7,7 @@ cd "$(dirname "$0")"
 apt-get update
 apt-get install -y libpulse-dev libnss3 libglu1-mesa
 apt-get install -y --reinstall libxcb-xinerama0
+apt-get clean
 
 wget $SLICER_DOWNLOAD_URL -O slicer.tar.gz
 

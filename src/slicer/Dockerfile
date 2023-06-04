@@ -19,17 +19,10 @@ COPY ./install_slicer.sh $INST_SCRIPTS/slicer/
 RUN bash $INST_SCRIPTS/slicer/install_slicer.sh && rm -rf $INST_SCRIPTS/slicer/
 
 # Install WebDAV
-RUN apt-get -y update && apt-get -y install apache2
-COPY ./ports.conf /etc/apache2/ports.conf
-COPY ./000-default.conf /etc/apache2/sites-available/000-default.conf
-COPY ./webdav-site.conf /etc/apache2/sites-available/webdav-site.conf
-RUN a2enmod dav && \
-    a2enmod dav_fs && \
-    mkdir -p /usr/local/apache && \
-    chown -R www-data:www-data /usr/local/apache && \
-    chown -R www-data:www-data /var/www && \
-    ln -s /etc/apache2/sites-available/webdav-site.conf /etc/apache2/sites-enabled/webdav-site.conf && \
-    apachectl configtest
+RUN apt-get -y update \
+    && apt-get -y install python2 python-kid \
+    && apt-get clean
+COPY ./easydav /opt/easydav
 
 # Custom startup script
 COPY ./custom_startup.sh $STARTUPDIR/custom_startup.sh

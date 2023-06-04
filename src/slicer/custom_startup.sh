@@ -24,7 +24,6 @@ startup() {
         sleep 1
     done
     set -x
-
 }
 
 rm -rf /home/kasm-user/Downloads
@@ -38,11 +37,8 @@ rm -rf /home/kasm-user/Templates
 
 touch /home/kasm-user/STORE_FILES_INSIDE_THE_DOCUMENTS_FOLDER
 
-chmod 777 /home/kasm-user/Documents
-chmod g+s /home/kasm-user/Documents
+cd /opt/easydav
+python2 /opt/easydav/webdav.py &
+cd ~
 
-setfacl -d -m g::rwx /home/kasm-user/Documents
-setfacl -d -m o:rwx /home/kasm-user/Documents
-
-service apache2 start
 startup
