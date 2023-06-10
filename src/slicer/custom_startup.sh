@@ -35,7 +35,7 @@ rm -rf /home/kasm-user/Desktop
 rm -rf /home/kasm-user/Public
 rm -rf /home/kasm-user/Templates
 
-touch /home/kasm-user/STORE_FILES_INSIDE_THE_DOCUMENTS_FOLDER
+touch /home/kasm-user/STORE_FILES_INSIDE_DOCUMENTS_DIR
 
 cd /opt/easydav
 python2 /opt/easydav/webdav.py &

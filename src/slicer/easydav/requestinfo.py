@@ -65,7 +65,10 @@ class RequestInfo(object):
         if config.root_url is not None:
             url = config.root_url
         else:
-            url = wsgiref.util.guess_scheme(self.environ) # 'http' or 'https'
+            if self.environ.has_key('HTTP_X_FORWARDED_PROTO'):
+                url = self.environ['HTTP_X_FORWARDED_PROTO']
+            else:
+                url = wsgiref.util.guess_scheme(self.environ) # 'http' or 'https'
             url += '://' + self.environ['HTTP_HOST']
             if self.environ.has_key('REQUEST_URI'):
                 full_path = urllib.unquote(self.environ['REQUEST_URI'])

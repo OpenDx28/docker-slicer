@@ -46,3 +46,53 @@ spec:
                   number: 8085
   tls:
     - secretName: slicer-tls
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: slicer-internal-vnc
+  namespace: slicer
+  #annotations:
+  #  traefik.ingress.kubernetes.io/router.entrypoints: websecure
+
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: "slicer.10.129.0.2.nip.io"
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: slicer-vnc
+                port:
+                  number: 6901
+  #tls:
+  #  - secretName: slicer-internal-tls
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: slicer-internal-webdav
+  namespace: slicer
+  #annotations:
+  #  traefik.ingress.kubernetes.io/router.entrypoints: websecure
+
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: "webdav.slicer.10.129.0.2.nip.io"
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: slicer-webdav
+                port:
+                  number: 8085
+  #tls:
+  #  - secretName: slicer-internal-tls

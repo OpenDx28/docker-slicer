@@ -76,6 +76,13 @@ function start_kasmvnc (){
 	if [[ "${VNC_DISABLE_AUTH}" == "true" ]] ; then
 		VNCOPTIONS="$VNCOPTIONS -disableBasicAuth"
 	fi
+
+    if [[ "${VNC_ALLOW_CLIENT_TO_OVERRIDE_VNC_SETTINGS}" == "false" ]] ; then
+		echo "runtime_configuration:" >> /etc/kasmvnc/kasmvnc.yaml
+		echo "  allow_client_to_override_kasm_server_settings: false" >> /etc/kasmvnc/kasmvnc.yaml
+		echo "  allow_override_standard_vnc_server_settings: false" >> /etc/kasmvnc/kasmvnc.yaml
+	fi
+
 	if [[ "${BUILD_ARCH}" =~ ^aarch64$ ]] && [[ -f /lib/aarch64-linux-gnu/libgcc_s.so.1 ]] ; then
 		LD_PRELOAD=/lib/aarch64-linux-gnu/libgcc_s.so.1 vncserver $DISPLAY $KASMVNC_HW3D -drinode $DRINODE -depth $VNC_COL_DEPTH -geometry $VNC_RESOLUTION -websocketPort $VNC_PORT -httpd ${KASM_VNC_PATH}/www -FrameRate=$MAX_FRAME_RATE -interface 0.0.0.0 -BlacklistThreshold=0 -FreeKeyMappings $VNCOPTIONS $KASM_SVC_SEND_CUT_TEXT $KASM_SVC_ACCEPT_CUT_TEXT
 	else
