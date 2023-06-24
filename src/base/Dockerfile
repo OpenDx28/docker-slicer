@@ -73,8 +73,8 @@ RUN bash $INST_SCRIPTS/audio/install_audio.sh  && rm -rf $INST_SCRIPTS/audio/
 #RUN bash $INST_SCRIPTS/audio_input/install_audio_input.sh && rm -rf $INST_SCRIPTS/audio_input/
 
 ### Install Gamepad Service
-#COPY ./ubuntu/install/gamepad $INST_SCRIPTS/gamepad/
-#RUN bash $INST_SCRIPTS/gamepad/install_gamepad.sh && rm -rf $INST_SCRIPTS/gamepad/
+# COPY ./ubuntu/install/gamepad $INST_SCRIPTS/gamepad/
+# RUN bash $INST_SCRIPTS/gamepad/install_gamepad.sh && rm -rf $INST_SCRIPTS/gamepad/
 
 ### Install custom cursors
 COPY ./ubuntu/install/cursors $INST_SCRIPTS/cursors/
@@ -131,7 +131,7 @@ RUN touch $STARTUPDIR/wm.log \
     && find $STARTUPDIR -type f -iname "*.log" -exec chmod 666 {} \; \
     # && chmod 755 $STARTUPDIR/upload_server/kasm_upload_server \
     # && chmod 755 $STARTUPDIR/audio_input/kasm_audio_input_server \
-    && chmod 755 $STARTUPDIR/gamepad/kasm_gamepad_server \
+    # && chmod 755 $STARTUPDIR/gamepad/kasm_gamepad_server \
     && chmod 755 $STARTUPDIR/generate_container_user.sh \
     && chmod +x $STARTUPDIR/jsmpeg/kasm_audio_out-linux \
     && rm -rf $STARTUPDIR/install \
