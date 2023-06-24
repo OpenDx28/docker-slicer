@@ -1911,17 +1911,20 @@ const UI = {
     updatePointerLockButton() {
         // Only show the button if the pointer lock API is properly supported
         // AND in fullscreen.
-        if (
-            UI.connected &&
-            (document.pointerLockElement !== undefined ||
-                document.mozPointerLockElement !== undefined)
-        ) {
-            UI.showControlInput("noVNC_setting_pointer_lock");
-            UI.showControlInput("noVNC_game_mode_button");
-        } else {
-            UI.hideControlInput("noVNC_setting_pointer_lock");
-            UI.hideControlInput("noVNC_game_mode_button");
-        }
+        // if (
+        //     UI.connected &&
+        //     (document.pointerLockElement !== undefined ||
+        //         document.mozPointerLockElement !== undefined)
+        // ) {
+        //     UI.showControlInput("noVNC_setting_pointer_lock");
+        //     UI.showControlInput("noVNC_game_mode_button");
+        // } else {
+        //     UI.hideControlInput("noVNC_setting_pointer_lock");
+        //     UI.hideControlInput("noVNC_game_mode_button");
+        // }
+
+        UI.hideControlInput("noVNC_setting_pointer_lock");
+        UI.hideControlInput("noVNC_game_mode_button");
     },
 
     togglePointerLock() {

@@ -73,8 +73,8 @@ RUN bash $INST_SCRIPTS/audio/install_audio.sh  && rm -rf $INST_SCRIPTS/audio/
 #RUN bash $INST_SCRIPTS/audio_input/install_audio_input.sh && rm -rf $INST_SCRIPTS/audio_input/
 
 ### Install Gamepad Service
-COPY ./ubuntu/install/gamepad $INST_SCRIPTS/gamepad/
-RUN bash $INST_SCRIPTS/gamepad/install_gamepad.sh && rm -rf $INST_SCRIPTS/gamepad/
+#COPY ./ubuntu/install/gamepad $INST_SCRIPTS/gamepad/
+#RUN bash $INST_SCRIPTS/gamepad/install_gamepad.sh && rm -rf $INST_SCRIPTS/gamepad/
 
 ### Install custom cursors
 COPY ./ubuntu/install/cursors $INST_SCRIPTS/cursors/
@@ -146,7 +146,23 @@ COPY ./ubuntu/install/cleanup $INST_SCRIPTS/cleanup/
 RUN bash $INST_SCRIPTS/cleanup/cleanup.sh && rm -rf $INST_SCRIPTS/cleanup/
 
 ### Apply KasmVNC web UI fix
-COPY ./common/install/kasm_vnc/www/app/ui.js /usr/share/kasmvnc/www/app/ui.js
+WORKDIR $HOME
+RUN git clone --depth 1 --branch v1.3.0 https://github.com/kasmtech/noVNC.git
+
+WORKDIR $HOME/noVNC
+COPY ./common/install/kasm_vnc/www/app/ui.js $HOME/noVNC/app/ui.js
+COPY ./common/install/kasm_vnc/www/package.json $HOME/noVNC/package.json
+COPY ./common/install/kasm_vnc/www/vnc.html $HOME/noVNC/vnc.html
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs
+RUN rm -rf package-lock.json \
+    && npm i \
+    && npm run build \
+    && rm -rf /usr/share/kasmvnc/www/dist \
+    && mv dist /usr/share/kasmvnc/www/ \
+    && mv -f index.html /usr/share/kasmvnc/www/index.html
+
+WORKDIR $HOME
+RUN rm -rf noVNC
 
 #### Runtime Stage ####
 FROM scratch
