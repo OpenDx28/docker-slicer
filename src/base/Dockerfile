@@ -145,6 +145,9 @@ RUN touch $STARTUPDIR/wm.log \
 COPY ./ubuntu/install/cleanup $INST_SCRIPTS/cleanup/
 RUN bash $INST_SCRIPTS/cleanup/cleanup.sh && rm -rf $INST_SCRIPTS/cleanup/
 
+### Apply KasmVNC web UI fix
+COPY ./common/install/kasm_vnc/www/app/ui.js /usr/share/kasmvnc/www/app/ui.js
+
 #### Runtime Stage ####
 FROM scratch
 COPY --from=base_layer / /
