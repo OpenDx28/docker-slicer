@@ -13,14 +13,14 @@ window.addEventListener("load", function() {
     loader.src = "vendor/browser-es-module-loader/dist/browser-es-module-loader.js";
     document.head.appendChild(loader);
 });
-window.addEventListener("load", function() {
-    var connect_btn_el = document.getElementById("noVNC_connect_button");
-    if (typeof(connect_btn_el) != 'undefined' && connect_btn_el != null)
-    {
-        connect_btn_el.click();
-        UI.connect();
-    }
-});
+// window.addEventListener("load", function() {
+//     var connect_btn_el = document.getElementById("noVNC_connect_button");
+//     if (typeof(connect_btn_el) != 'undefined' && connect_btn_el != null)
+//     {
+//         connect_btn_el.click();
+//         UI.connect();
+//     }
+// });
 
 window.updateSetting = (name, value) => {
     WebUtil.writeSetting(name, value);
@@ -142,13 +142,15 @@ const UI = {
 
         document.documentElement.classList.remove("noVNC_loading");
 
-        let autoconnect = WebUtil.getConfigVar('autoconnect', false);
-        if (autoconnect === 'true' || autoconnect == '1') {
-            autoconnect = true;
-            UI.connect();
-        } else {
-            autoconnect = false;
-        }
+        // let autoconnect = WebUtil.getConfigVar('autoconnect', false);
+        // if (autoconnect === 'true' || autoconnect == '1') {
+        //     autoconnect = true;
+        //     UI.connect();
+        // } else {
+        //     autoconnect = false;
+        // }
+
+        UI.connect();
 
         window.parent.postMessage({
             action: "noVNC_initialized",
