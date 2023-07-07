@@ -1,6 +1,6 @@
 # docker-slicer
 
-This repository holds a Docker image configured to run the 3D Slicer application in a VNC server compatible with 3D acceleration using Nvidia GPUs.
+This repository holds a Docker image configured to run the 3D Slicer application in a VNC server compatible with 3D acceleration using Nvidia GPUs. It also includes a WebDAV server with a web UI running on port 8085.
 
 ## Instructions
 
@@ -14,7 +14,7 @@ docker build -t slicer .
 Run the image locally:
 
 ```bash
-docker run --rm -it --gpus all --shm-size=512m -p 6901:6901 -e VNC_DISABLE_AUTH=true --user root slicer
+docker run --rm -it --gpus all --shm-size=512m -p 6901:6901 -p 8085:8085 -e VNC_DISABLE_AUTH=true --user root slicer
 ```
 
 ## Configuration
