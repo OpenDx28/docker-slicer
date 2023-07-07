@@ -17,6 +17,8 @@ Run the image locally:
 docker run --rm -it --gpus all --shm-size=512m -p 6901:6901 -p 8085:8085 -e VNC_DISABLE_AUTH=true --user root slicer
 ```
 
+Open a browser and go to: https://localhost:6901
+
 ## Configuration
 
 Available environment variables:
