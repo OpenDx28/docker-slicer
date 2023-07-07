@@ -30,6 +30,9 @@ jobs:
       - name: Log in to registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
 
+      - name: Pull base image
+        run: docker pull $BASE_IMAGE_NAME
+
       - name: Build image
         run: cd src && docker build . --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}" --build-arg BASE_IMAGE=$BASE_IMAGE_NAME
 
