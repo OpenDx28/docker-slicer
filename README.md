@@ -8,7 +8,7 @@ Build the image locally:
 
 ```bash
 cd src
-docker build -t slicer . 
+docker build -t slicer --build-arg BASE_IMAGE="vnc-base:latest" .
 ```
 
 Run the image locally:
