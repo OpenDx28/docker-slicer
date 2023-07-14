@@ -17,7 +17,11 @@ Run the image locally:
 docker run --rm -it --gpus all --shm-size=512m -p 6901:6901 -p 8085:8085 -e VNC_DISABLE_AUTH=true --user root slicer
 ```
 
-Open a browser and go to: https://localhost:6901
+To access 3D Slicer locally through VNC:
+- Open a browser and go to: http://localhost:6901
+
+To access the WebDAV UI locally:
+- Open a browser and go to: http://localhost:8085
 
 ## Configuration
 
