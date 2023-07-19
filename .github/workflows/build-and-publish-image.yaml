@@ -11,7 +11,7 @@ on:
       - v*
 
 env:
-  BASE_IMAGE_NAME: ghcr.io/ispana/vnc-base:latest
+  BASE_IMAGE_NAME: ghcr.io/OpenDx28/vnc-base:latest
   IMAGE_NAME: slicer
 
 jobs:
